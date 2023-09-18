@@ -28,14 +28,13 @@ int main(){
 }
 
 double aCounter(double x, double y, double z){
-    double a;
-    a = log(z+x*x)+sin(x/y)*sin(x/y);
+    double a = log(z + x * x) + sin(x / y) * sin(x / y);
     return a;
 }
 
 double bCounter(double x, double y, double z){
     double numerator, denominator;
-    numerator = x + sqrt(x+z);
-    denominator = x - sqrt(abs(x-y));
-    return exp(-1*z)*(numerator/denominator);
+    numerator = x + sqrt(x + z);
+    denominator = x - sqrt(abs(x - y));
+    return exp(-1 * z) * (numerator / denominator);
 }
