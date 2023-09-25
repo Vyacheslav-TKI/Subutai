@@ -1,10 +1,10 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <math.h>
 
 /**
  * @brief Функция рассчитывает потенциальную энергию
- * @param k, x; где k - жесткость пружины, x - растянутость пружины
+ * @param k - жесткость пружины,
+ * @param x - растянутость пружины
 */
 double Potential_energy(double k, double x);
 /**
@@ -27,6 +27,9 @@ int main(){
         printf("Potential energy equals: %.2f", energy);
 
     
+    }
+    else {
+        printf("%s", "Insert only pozitive numbers!\n");
     }
     return 0;
 }
