@@ -1,9 +1,10 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <math.h>
 /**
  *  @brief Возвращает результат переменной а
- *  @param x, y, z Являются заданными константами
+ *  @param x Заданная константа
+ *  @param y Заданная константа
+ *  @param z Заданная константа
 */
 double aCounter(double x, double y, double z);
 /**
