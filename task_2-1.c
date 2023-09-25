@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
+
 /**
  * @brief Функция проверяет, положительное ли число?
  * @param x проверяемое число
@@ -10,6 +11,13 @@
 int is_right_num(double x);
 
 int main(){
+    enum Values
+{
+    face_area = 1,
+    total_surface = 2,
+    volume = 3,
+};
+
     float rebro;
     int formul;
     printf("%s", "Please, insert a non-negative number\n");
@@ -19,35 +27,27 @@ int main(){
         printf("%s", "Insert a valid value!\n");
     }
     else {
-        double x = rebro*rebro;
-        double y = 6 * rebro * rebro;
-        double z = rebro*rebro*rebro;
 
         printf("%s", "Please, write what you want to find: face area, total surface area or volume\n");
-        printf("%s", "If you want to find face area, enter '1'.\n");
-        printf("%s", "If you want to find total surface, enter '2'\n");
-        printf("%s", "If you want to find volume, enter '3'\n");
+        printf("%s", "If you want to find face area, press '1'.\n");
+        printf("%s", "If you want to find total surface, press '2'\n");
+        printf("%s", "If you want to find volume, press '3'\n");
 
         scanf("%d", &formul);
-        switch (formul){
-        case 1:
-            
-            printf("Face area equals: %.2f", x);
-            break;
-        case 2:
-            
-            printf("Total surface equals: %.2f", y);
-            break;
-        case 3:
-           
-            printf("Volume equals: %.2f", z);
-            break;
-        default:
-            printf("%s", "Please, enter your wanted formule\n");
-            break;
-    }
-    }
+        if(formul == face_area){
+            double x = rebro*rebro;
+            printf("Face area equals: %lf", x);
+        }
+        else if(formul == total_surface){
+            double y = 6 * rebro * rebro;
+            printf("Total surface equals: %lf", y);
+        }
+        else if(formul == volume){
+            double z = rebro*rebro*rebro;
+            printf("Volume equals: %lf", z);
+        }
     return 0;
+}
 }
 
 int is_right_num(double x){
