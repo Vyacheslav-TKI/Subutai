@@ -7,52 +7,78 @@
  * @param x проверяемое число
  * @return 1 - число положительное и отличное от нуля, 0 - число отрицательное или нуль
 */
+int is_positive(const double x);
 
-int is_right_num(double x);
+/**
+ * @brief Функция вычисляет нужную пользователю величину
+ * @param x порядковый номер формулы
+*/
+double formula_selection(int x, double cube_edge);
 
-int main(){
-    enum Values
+enum Values
 {
     face_area = 1,
     total_surface = 2,
     volume = 3,
 };
 
-    float rebro;
-    int formul;
-    printf("%s", "Please, insert a non-negative number\n");
+int main(){
+    
+    float cube_edge;
+    int formula;
+    puts("Please, insert a non-negative number\n");
 
-    scanf("%f", &rebro);
-    if(!is_right_num(rebro)){
-        printf("%s", "Insert a valid value!\n");
+    scanf("%f", &cube_edge);
+    if (is_positive(cube_edge) == 0){
+        puts("Please, enter a non-negative number!\n");
+        return 0;
+        abort();
     }
-    else {
+    else{
+        if(!is_right_num(cube_edge)){
+            printf("%s", "Insert a valid value!\n");
+        }
+        else {
 
-        printf("%s", "Please, write what you want to find: face area, total surface area or volume\n");
-        printf("%s", "If you want to find face area, press '1'.\n");
-        printf("%s", "If you want to find total surface, press '2'\n");
-        printf("%s", "If you want to find volume, press '3'\n");
+            puts("Please, write what you want to find: face area, total surface area or volume\n");
+            puts("If you want to find face area, press '1'.\n");
+            puts("If you want to find total surface, press '2'\n");
+            puts("If you want to find volume, press '3'\n");
 
-        scanf("%d", &formul);
-        if(formul == face_area){
-            double x = rebro*rebro;
-            printf("Face area equals: %lf", x);
-        }
-        else if(formul == total_surface){
-            double y = 6 * rebro * rebro;
-            printf("Total surface equals: %lf", y);
-        }
-        else if(formul == volume){
-            double z = rebro*rebro*rebro;
-            printf("Volume equals: %lf", z);
-        }
-    return 0;
+            scanf("%d", &formula);
+            if(is_right_num(formula) == 0){
+                puts("Please, enter 1, 2 or 3!\n");
+                return 0;
+                abort();
+            }
+            else{
+                formula_selection(formula, cube_edge);
+            }
+        
+        return 0;
 }
 }
+}
 
-int is_right_num(double x){
+int is_positive(const double x){
     if(x > 0){
         return 1;
     }
+    return 0;
+}
+
+double formula_selection(int x, double cube_edge){
+    if(x == face_area){
+            double x = cube_edge*cube_edge;
+            printf("Face area equals: %lf", x);
+        }
+        else if(x == total_surface){
+            double y = 6 * cube_edge * cube_edge;
+            printf("Total surface equals: %lf", y);
+        }
+        else if(x == volume){
+            double z = cube_edge*cube_edge*cube_edge;
+            printf("Volume equals: %lf", z);
+        }
     return 0;
 }
