@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 
 
 /**
@@ -28,15 +29,17 @@ int main(){
     int formula;
     puts("Please, insert a non-negative number\n");
 
-    scanf("%f", &cube_edge);
+    if(scanf("%f", &cube_edge) != 1){
+        puts("Please insert a valid value\n");
+        abort();}
     if (is_positive(cube_edge) == 0){
         puts("Please, enter a non-negative number!\n");
-        return 0;
         abort();
     }
     else{
         if(!is_right_num(cube_edge)){
-            printf("%s", "Insert a valid value!\n");
+            puts("Insert a valid value!\n");
+            abort();
         }
         else {
 
@@ -48,7 +51,6 @@ int main(){
             scanf("%d", &formula);
             if(is_right_num(formula) == 0){
                 puts("Please, enter 1, 2 or 3!\n");
-                return 0;
                 abort();
             }
             else{
