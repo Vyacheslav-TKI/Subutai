@@ -1,30 +1,37 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 
 
 /** 
  * @brief Функция считает среднее арифметическое кубов заданных чисел
- * @param x, y являются рациональными числами
+ * @param x Первое рациональное число
+ * @param y Второе рациональное число
  */
 double arithmetic_mean_of_cubes(double x, double y);
 /**
  * @brief Функция считает среднее геометрическое МОДУЛЕЙ чисел
- * @param x, y являются рациональными числами
+ * @param x Первое рациональное число
+ * @param y Второе рациональное число
 */
 double geometric_mean(double x, double y);
 
 int main(){
-    double i, j, sr_arifm_cube, sr_geom;
+    double i, j, average, geom_mean;
 
     puts("In the next strings insert just non-negative or just negative numbers\n");
 
-    scanf("%lf", &i);
-    scanf("%lf", &j);
+    if(scanf("%lf", &i) != 1){
+        puts("Please, insert a valid value!\n");
+        abort();}
+    if(scanf("%lf", &j) != 1){
+        puts("Please, insert a valid value!");
+        abort();}
 
-    sr_arifm_cube = arithmetic_mean_of_cubes(i, j);
-    sr_geom = geometric_mean(i, j);
-    printf("The arithmetic mean of cubes of numbers is equal to: %.2f\n", sr_arifm_cube);
-    printf("The geometric mean of the numbers is: %.2f\n", sr_geom);
+    average = arithmetic_mean_of_cubes(i, j);
+    geom_mean = geometric_mean(i, j);
+    printf("The arithmetic mean of cubes of numbers is equal to: %.2f\n", average);
+    printf("The geometric mean of the numbers is: %.2f\n", geom_mean);
     
     return 0;
 
@@ -37,7 +44,11 @@ double arithmetic_mean_of_cubes(double x, double y){
 }
 
 double geometric_mean(double x, double y){
-    x = abs(x);
-    y = abs(y);
+    if(x < 0){
+        x *= -1;
+    }
+    if (y < 0){
+        y *= -1;
+    }
     return sqrt(x * y);
 }
