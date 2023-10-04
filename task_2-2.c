@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 /**
@@ -6,37 +7,40 @@
  * @param a Заданная константа
  * @param x Заданная пользователем переменная
 */
-double first_equation(double a, double x);
+double upper_equation(double a, double x);
 
 /**
  * @brief Функция вычисляет второе(нижнее) уравнение
  * @param a Заданная константа
  * @param x Заданная пользователем переменная
 */
-double second_equation(double a, double x);
+double lower_equation(double a, double x);
 
 int main(){
     double a = 0.3f;
     double x;
     double y;
+    double result;
     puts("Enter value of x\n");
-    scanf("%f", &x);
+    if(scanf("%f", &x) != 1){
+        puts("Please insert a valid value\n");
+        abort();}
 
     if(a*x < 1){
-        first_equation(a, x);
+        result = upper_equation(a, x);
+        printf("X equals: %lf", result);
     }
     else if(a*x >= 1){
-        second_equation(a, x);
+        result = lower_equation(a, x);
+        printf("X equals: %lf", result);
     }
     return 0;
 }
 
-double first_equation(double a, double x){
-    double y = a * sin((x*x+1)/10);
-    printf("The value of y equals: %f", y);
+double upper_equation(double a, double x){
+    return a * sin((x*x+1)/10);
 }
 
-double second_equation(double a, double x){
-    double y = a * cos((x-1)/10);
-    printf("The value of y equals: %f", y);
+double lower_equation(double a, double x){
+    return a * cos((x-1)/10);
 }
