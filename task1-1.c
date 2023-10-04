@@ -9,7 +9,9 @@
 double aCounter(double x, double y, double z);
 /**
  *  @brief Возвращает результат переменной b
- *  @param x, y, z Являются заданными константами
+ *  @param x Заданная константа
+ *  @param y Заданная константа
+ *  @param z Заданная константа
 */
 double bCounter(double x, double y, double z);
 
@@ -29,8 +31,7 @@ int main(){
 }
 
 double aCounter(double x, double y, double z){
-    double a = log(z + x * x) + sin(x / y) * sin(x / y);
-    return a;
+    return log(z + x * x) + sin(x / y) * sin(x / y);
 }
 
 double bCounter(double x, double y, double z){
