@@ -7,18 +7,25 @@
  * @param x проверяемое число
  * @return 1 - число отрицательное или равное нулю, 0 - число положительное
 */
-int is_pozitive_num(double x);
+int pozitive_num(double x);
 
 int main(){
     float first_side, second_side, third_side;
     
     puts("In the next(3) strings enter non-negative numbers\n");
-    scanf("%f", &first_side);
-    scanf("%f", &second_side);
-    scanf("%f", &third_side);
+    if(scanf("%f", &first_side) != 1){
+        puts("Please insert a valid value\n");
+        abort();}
+    if(scanf("%f", &second_side) != 1){
+        puts("Please insert a valid value\n");
+        abort();}
+    if(scanf("%f", &third_side) != 1){
+        puts("Please insert a valid value\n");
+        abort();}
 
     if (is_pozitive_num(first_side) || is_pozitive_num(second_side) || is_pozitive_num(third_side)){
         puts("Please, enter non-negative number\n");
+        abort();
     }
     else{
         if((first_side+second_side > third_side) && (first_side + third_side > second_side) && (second_side+third_side > first_side)){
@@ -35,7 +42,7 @@ int main(){
 
 }
 
-int is_pozitive_num(double x){
+int pozitive_num(double x){
     if(x > 0){
         return 0;
     }
