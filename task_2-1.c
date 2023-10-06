@@ -36,31 +36,31 @@ int main(){
         puts("Please, enter a non-negative number!\n");
         abort();
     }
+    if(!is_right_num(cube_edge)){
+        puts("Insert a valid value!\n");
+        abort();
+    }
+
+    puts("Please, write what you want to find: face area, total surface area or volume\n");
+    puts("If you want to find face area, press '1'.\n");
+    puts("If you want to find total surface, press '2'\n");
+    puts("If you want to find volume, press '3'\n");
+
+    if(scanf("%d", &formula) != 1){
+        puts("Please input a valid value!\n");
+        abort();}
+    if(is_right_num(formula) == 0){
+        puts("Please, enter 1, 2 or 3!\n");
+        abort();
+    }
     else{
-        if(!is_right_num(cube_edge)){
-            puts("Insert a valid value!\n");
-            abort();
-        }
-        else {
-
-            puts("Please, write what you want to find: face area, total surface area or volume\n");
-            puts("If you want to find face area, press '1'.\n");
-            puts("If you want to find total surface, press '2'\n");
-            puts("If you want to find volume, press '3'\n");
-
-            scanf("%d", &formula);
-            if(is_right_num(formula) == 0){
-                puts("Please, enter 1, 2 or 3!\n");
-                abort();
-            }
-            else{
-                formula_selection(formula, cube_edge);
-            }
+        formula_selection(formula, cube_edge);
+    }
         
-        return 0;
+    return 0;
 }
-}
-}
+
+
 
 int is_positive(const double x){
     if(x > 0){
