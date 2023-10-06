@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 
 /**
  * @brief Функция рассчитывает потенциальную энергию
@@ -18,12 +19,15 @@ int main(){
     double k, x, energy;
     puts("Insert the k value first, then the x value, all values is non-negative number\n");
 
-    scanf("%lf", &k);
-    scanf("%lf", &x);
+    if(scanf("%lf", &k) != 1){
+        puts("Please input a valid value!\n");
+        abort();}
+    if(scanf("%lf", &x) != 1){
+        puts("Please input a valid value!\n");
+        abort();}
 
     if(is_num(k) + is_num(x) < 2){
         printf("%s", "Insert only pozitive numbers!\n");
-        return 0;
         abort();
 
     }
