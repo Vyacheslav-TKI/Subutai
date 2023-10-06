@@ -27,20 +27,20 @@ int main(){
         puts("Please, enter non-negative number\n");
         abort();
     }
-    else{
-        if((first_side+second_side > third_side) && (first_side + third_side > second_side) && (second_side+third_side > first_side)){
-            puts("It is possible to make a triangle from these sides\n");
-            if((first_side*first_side < second_side*second_side+third_side*third_side) && (second_side*second_side < first_side*first_side+third_side*third_side) && (third_side*third_side < first_side*first_side+second_side*second_side)){
-                puts("Acute triangle\n");
-            }
-            else {
-                puts("Non-acute triangle\n");
-            }
+    if((first_side+second_side > third_side) && (first_side + third_side > second_side) && (second_side+third_side > first_side)){
+        puts("It is possible to make a triangle from these sides\n");
+        if((first_side*first_side < second_side*second_side+third_side*third_side) && (second_side*second_side < first_side*first_side+third_side*third_side) && (third_side*third_side < first_side*first_side+second_side*second_side)){
+            puts("Acute triangle\n");
+        }
+        else {
+            puts("Non-acute triangle\n");
         }
     }
     return 0;
-
 }
+    
+
+
 
 int pozitive_num(double x){
     if(x > 0){
