@@ -31,10 +31,8 @@ int main(){
         abort();
 
     }
-    else {
-        energy = potential_energy(k, x);
-        printf("Potential energy equals: %.2f", energy);
-    }
+    energy = potential_energy(k, x);
+    printf("Potential energy equals: %.2f", energy);
     return 0;
 }
 
