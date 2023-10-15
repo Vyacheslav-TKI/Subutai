@@ -30,7 +30,7 @@ int main(){
         result = upper_equation(a, x);
         printf("X equals: %lf", result);
     }
-    else if(a*x >= 1){
+    else{
         result = lower_equation(a, x);
         printf("X equals: %lf", result);
     }
