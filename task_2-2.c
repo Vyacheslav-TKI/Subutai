@@ -16,6 +16,11 @@ double upper_equation(double a, double x);
 */
 double lower_equation(double a, double x);
 
+/**
+*@brief Точка входа в программу
+*@return 0 Программа исправна
+*@return 1 Программа неисправна
+*/
 int main(){
     double a = 0.3f;
     double x;
