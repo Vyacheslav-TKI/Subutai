@@ -43,12 +43,12 @@ int main(){
 
     double first_side = get_number(), second_side = get_number(), third_side = get_number();
 
-    if(is_triangle(first_side, second_side, third_side) == 0){
+    if (is_triangle(first_side, second_side, third_side) == 0){
         puts("It is impossible to make a triangle from these sides\n");
         }
     else{
         puts("It is possible to make a triangle from these sides\n");
-        if(is_acute(first_side, second_side, third_side) == 1){
+        if (is_acute(first_side, second_side, third_side) == 1){
             puts("Acute triangle\n");
             }
         else{
@@ -64,24 +64,26 @@ int pozitive_num(double x){
 
 double get_number(){
     double x;
-    if(scanf("%lf", &x) != 1){
+    if (scanf("%lf", &x) != 1){
         puts("Please insert a valid value\n");
-        abort();}
-    if(pozitive_num(x) == 1){
+        abort();
+    }
+    if (pozitive_num(x) == 1){
         puts("Please, enter non-negative number\n");
         abort();
         }
     return x;
 }
-
 int is_triangle(double first_side, double second_side, double third_side){
-    if((first_side+second_side > third_side) && (first_side + third_side > second_side) && (second_side+third_side > first_side)){
-    return 1;}
+    if ((first_side + second_side > third_side) && (first_side + third_side > second_side) && (second_side + third_side > first_side)){
+    return 1;
+    }
     return 0;
 }
 
 int is_acute(double first_side, double second_side, double third_side){
-    if((first_side*first_side < second_side*second_side+third_side*third_side) && (second_side*second_side < first_side*first_side+third_side*third_side) && (third_side*third_side < first_side*first_side+second_side*second_side)){
-        return 1;}
+    if ((first_side * first_side < second_side * second_side + third_side * third_side) && (second_side * second_side < first_side * first_side+third_side * third_side) && (third_side*third_side < first_side * first_side + second_side * second_side)){
+        return 1;
+    }
     return 0;
 }
