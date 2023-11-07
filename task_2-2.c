@@ -33,12 +33,11 @@ int main(){
 
     if(a*x < 1){
         result = upper_equation(a, x);
-        printf("X equals: %lf", result);
     }
     else{
         result = lower_equation(a, x);
-        printf("X equals: %lf", result);
     }
+    printf("X equals: %lf", result);
     return 0;
 }
 
