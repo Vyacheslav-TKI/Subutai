@@ -19,12 +19,13 @@ double check_number();
 bool check_function(double x);
 
 /**
- * @brief Проверяет начальные и конечные значения на то, чтобы начальное значение меньше конечного
+ * @brief Проверяет значения на правильность
  * @param x_start начальное значение
  * @param x_stop конечное значение
- * @return true начальное значение меньше конечного
+ * @param x_step значение шага
+ * @return true переменные правильно введены
  */
-bool check_arguments(double x_start, double x_stop);
+bool check_arguments(double x_start, double x_stop, double x_step);
 
 /**
  * @brief Точка входа в программу
@@ -38,13 +39,13 @@ int main(){
     puts("Insert a step number\n");
     double x_step = check_number();
 
-    check_arguments(x_start, x_stop);
+    check_arguments(x_start, x_stop, x_step);
     
-    while (x_start < x_stop + x_step)
+    while (x_start <= x_stop)
     {
         if (!check_function(x_start))
         {
-            puts("Function not defined\n");
+            printf("X: %.2lf      Y: Function not defined\n", x_start);
         }
         else
         {
@@ -74,10 +75,10 @@ bool check_function(double x){
     return true;
 }
 
-bool check_arguments(double x_start, double x_stop){
-    if (x_start > x_stop)
+bool check_arguments(double x_start, double x_stop, double x_step){
+    if (x_start - x_stop > -DBL_EPSILON && x_step > -DBL_EPSILON)
     {
-        puts("Start value is bigger than stop value!\n);
+        puts("Start value is bigger than stop value!\n");
         abort();
     }
     return true;
