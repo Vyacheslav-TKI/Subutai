@@ -48,25 +48,26 @@ int main(){
 
 
 double sum_of_sequence(int k){
-    double result = 8.0f;
-    double last_elem = 8.0f;
-    for(int r = 1; r < k; r++)
+    double result = 0.0f;
+    double last_elem = 1.0f;
+    for(int r = 1; r <= k; r++)
     {
-        result += last_elem * (pow(r+2, 3) / pow(r+1, 4));
         last_elem *= (pow(r+2, 3) / pow(r+1, 4));
+        result += last_elem;
+        
     }
     return result;
 }
 
 double verified_sum_of_series(double e){
-    double result = 8.0f;
-    double last_elem = 8.0f; 
+    double result = 0.0f;
+    double last_elem = 1.0f; 
     int r = 1;
-    while(last_elem >= e + DBL_EPSILON)
+    while(last_elem - e >= -DBL_EPSILON)
     {
-        result += last_elem*(pow(r+2, 3) / pow(r+1, 4));
-        r++;
         last_elem *= (pow(r+2, 3) / pow(r+1, 4));
+        r++;
+        result += last_elem;
     }
     return result;
 }
