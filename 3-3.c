@@ -10,10 +10,25 @@
 */
 double check_number();
 
+/**
+ * @brief Вычисляет результат заданной функции
+ * @param x аргумент функции
+ * @return atan(x) значение функции
+*/
 double result_of_function(double x);
 
+/**
+ * @brief Вычисляет сумму ряда с заданной точностью
+ * @param x переменная ряда
+ * @param e точность вычисления
+ * @return result сумма ряда
+*/
 double summation_of_series(double x, double e);
 
+/**
+ * @brief точка входа в программу
+ * @return 0 программа исправна
+*/
 int main(){
     double e = pow(40, -5);
 
