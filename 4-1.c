@@ -9,24 +9,18 @@
 int check_number();
 
 /**
- * @brief Проверка числа на правильность
- * @return x число 1 или 2
-*/
-int check_number_for_choices();
-
-/**
  * @brief Создаёт и заполняет массив рандомными числами в диапазоне [-100:200]
  * @param x размерность массива
  * @return array массив
 */
-int *random_array(int x);
+int *random_array(size_t size);
 
 /**
  * @brief Создаёт динамический массив и заполнение происходит самим пользователем 
  * @param x размерность массива
  * @return array массив
 */
-int *user_array(int x);
+int *user_array(size_t size);
 
 /**
  * @brief Находит сумму четных элементов, значения которых больше заданного числа.
@@ -35,7 +29,7 @@ int *user_array(int x);
  * @param mas указатель на массив
  * @return result результат
 */
-int *first_task(int number, int x, int *mas);
+int *first_task(int number, size_t size, int *mas);
 
 /**
  * @brief Умножает все четные положительные элементы на последний элемент массива.
@@ -53,6 +47,12 @@ int *second_task(int x, int *mas);
 */
 int *third_task(int x, int *mas);
 
+enum Choices
+{
+random_choice = 1,
+user_choice = 2,
+};
+
 /**
  * @brief Точка входа в программу
  * @return 0 Программа исправна
@@ -62,37 +62,33 @@ int main(){
     int dimension = check_number();
     puts("If you want to fill the array yourself, press 1, if you want the program to fill the array itself, press 2\n");
     int choice = check_number_for_choices();
-    if (choice == 1)
+    int *mas = NULL;
+    switch (choice)
     {
-        int *mas = user_array(dimension);
-        puts("Insert a integer number\n");
-        int number = check_number();
-        printf("First task: %d\n", first_task(number, dimension, mas));
-        printf("Second task: %d\n", second_task(dimension, mas));
-        if (third_task(dimension, mas) == 0)
-        {
-            puts("Third task: Not found\n");
-        }
-        else
-        {
-            printf("Third task: %d", third_task(dimension, mas));
-        }
+        case (enum Choices)(random_choice):
+            int *mas = random_array(dimension);
+        case (enum Choices)(user_choice):
+            int *mas = user_array(dimension);
+        default:
+            puts("Inserted a wrong value\n");
+            return 1;
+
     }
-    else 
+    puts("Insert a integer number\n");
+    int number = check_number();
+    printf("First task: %d\n", first_task(number, dimension, mas));
+    printf("Second task: %d\n", second_task(dimension, mas));
+    if (third_task(dimension, mas) == 0)
     {
-        int *mas = random_array(dimension);
-        puts("Insert a integer number\n");
-        int number = check_number();
-        printf("First task: %d\n", first_task(number, dimension, mas));
-        printf("Second task: %d\n", second_task(dimension, mas));
-        if (third_task(dimension, mas) == 0)
-        {
-            puts("Third task: Not found\n");
-        }
-        else
-        {
-            printf("Third task: %d", third_task(dimension, mas));
-        }
+        puts("Third task: Not found\n");
+    }
+    else
+    {
+        printf("Third task: %d", third_task(dimension, mas));
+    }
+    if (mas != NULL)
+    {
+        free(mas);
     }
     return 0;
 }
@@ -107,44 +103,31 @@ int check_number(){
     return x;
 }
 
-int check_number_for_choices(){
-    int x;
-    if (scanf("%d", &x) != 1)
-    {
-        puts("Inserted a wrong value!\n");
-        abort();
-    }
-    else if (x < 0 || x > 2)
-    {
-        puts("Inserted a wrong number!\n");
-        abort();
-    }
-    return x;
-}
-
-int *random_array(int x){
+int *random_array(size_t size){
     int *array = NULL;
-    array = malloc(x * sizeof(int));
-    for (int i = 0; i < x; i++)
+    if (array == NULL)
+        array = malloc(size * sizeof(int));
+    for (int i = 0; i < size; i++)
     {
         array[i] = rand() % 200 - 100;
     }
     return array;
 }
 
-int *user_array(int x){
+int *user_array(size_t size){
     int *array = NULL;
-    array = malloc(x * sizeof(int));
-    for (int i = 0; i < x; i++)
+    if (array == NULL)
+        array = malloc(size * sizeof(int));
+    for (int i = 0; i < size; i++)
     {
         array[i] = check_number();
     }
     return array;
 }
 
-int *first_task(int number, int x, int *mas){
+int *first_task(int number, size_t size, int *mas){
     int result = 0;
-    for (int i = 0; i < x; i += 2)
+    for (int i = 0; i < size; i += 2)
     {
         if (mas[i] > number)
         {
@@ -169,7 +152,7 @@ int *second_task(int x, int *mas){
 int *third_task(int x, int *mas){
     for (int i = 1; i < x; i++)
     {
-        if ((mas[i] < 0 && mas[i-1] > 0) || (mas[i] > 0 && mas[i-1] < 0))
+        if ((mas[i] * mas[i-1]) < 0)
         {
             return i;
         }
