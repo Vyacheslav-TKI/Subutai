@@ -31,7 +31,8 @@ bool check_arguments(double x_start, double x_stop, double x_step);
  * @brief Точка входа в программу
  * @return 0 Программа исправна
 */
-int main(){
+int main()
+{
     puts("Insert a start value\n");
     double x_start = check_number();
     puts("Insert a stop value\n");
@@ -40,7 +41,7 @@ int main(){
     double x_step = check_number();
 
     check_arguments(x_start, x_stop, x_step);
-    
+
     while (x_start <= x_stop)
     {
         if (!check_function(x_start))
@@ -57,7 +58,8 @@ int main(){
     return 0;
 }
 
-double check_number(){
+double check_number()
+{
     double x;
     if (scanf("%lf", &x) != 1)
     {
@@ -67,7 +69,8 @@ double check_number(){
     return x;
 }
 
-bool check_function(double x){
+bool check_function(double x)
+{
     if ((x + cos(powf(x, 0.52)+2) + DBL_EPSILON) < -0.57 + DBL_EPSILON || x < DBL_EPSILON)
     {
         return false;
@@ -75,11 +78,23 @@ bool check_function(double x){
     return true;
 }
 
-bool check_arguments(double x_start, double x_stop, double x_step){
-    if (x_start - x_stop > -DBL_EPSILON && x_step > -DBL_EPSILON)
+bool check_arguments(double x_start, double x_stop, double x_step)
+{
+    if (x_stop - x_start < DBL_EPSILON)
     {
-        puts("Start value is bigger than stop value!\n");
-        abort();
+        if (x_step > -DBL_EPSILON)
+        {
+            puts("Inserted a wrong arguments!");
+            abort();
+        }
+    }
+    else if (x_stop - x_start > -DBL_EPSILON)
+    {
+        if (x_step < DBL_EPSILON)
+        {
+            puts("Inserted a wrong arguments!");
+            abort();
+        }
     }
     return true;
 }
