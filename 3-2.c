@@ -4,6 +4,20 @@
 #include <float.h>
 
 /**
+ * @brief Функция проверяет число на положительность
+ * @param number введенное число
+ * @return 0 число положительное
+ */
+double check_pozitive_float(double number);
+
+/**
+ * @brief Функция проверяет число на положительность
+ * @param number введенное число
+ * @return 0 число положительное
+ */
+int check_pozitive_int(int number);
+
+/**
  * @brief Функция проверяет введеный символ на число
  * @return x непосредственно число
  */
@@ -37,8 +51,10 @@ double verified_sum_of_series(double e);
 int main(){
     puts("Enter a trailing element pointer\n");
     int n = check_number_int();
+    check_pozitive_int(n);
     puts("Enter a number\n");
     double e = check_number_float();
+    check_pozitive_float(e);
 
     printf("Sum of sequence untill %d-th element equals: %lf\n", n, sum_of_sequence(n));
     printf("Sum of sequence not less than a number %lf equals: %lf\n", e, verified_sum_of_series(e));
@@ -54,7 +70,7 @@ double sum_of_sequence(int k){
     {
         last_elem *= (pow(r+2, 3) / pow(r+1, 4));
         result += last_elem;
-        
+
     }
     return result;
 }
@@ -90,4 +106,24 @@ int check_number_int(){
         abort();
     }
     return x;
+}
+
+int check_pozitive_int(int number)
+{
+    if (number < 0)
+    {
+        puts("Inserted a negative number");
+        abort();
+    }
+    return 0;
+}
+
+double check_pozitive_float(double number)
+{
+    if (number < DBL_EPSILON)
+    {
+        puts("Inserted a negative number");
+        abort();
+    }
+    return 0;
 }
