@@ -11,6 +11,15 @@
 double check_number();
 
 /**
+ * @brief Проверяет значения на правильность
+ * @param x_start начальное значение
+ * @param x_stop конечное значение
+ * @param x_step значение шага
+ * @return true переменные правильно введены
+ */
+bool check_arguments(double x_start, double x_stop, double x_step);
+
+/**
  * @brief Вычисляет результат заданной функции
  * @param x аргумент функции
  * @return atan(x) значение функции
@@ -23,14 +32,14 @@ double result_of_function(double x);
  * @param e точность вычисления
  * @return result сумма ряда
 */
-double summation_of_series(double x, double e);
+double summation_of_series(double x,  const double e);
 
 /**
  * @brief точка входа в программу
  * @return 0 программа исправна
 */
 int main(){
-    double e = pow(40, -5);
+    const double e = pow(40, -5);
 
     puts("Insert a start value\n");
     double x_start = check_number();
@@ -38,6 +47,8 @@ int main(){
     double x_stop = check_number();
     puts("Insert a step number\n");
     double x_step = check_number();
+    
+    check_arguments(x_start, x_stop, x_step);
 
     while (x_start < x_stop + x_step){
         printf("X: %lf       Y: %lf     Summ(x): %lf\n",  x_start, result_of_function(x_start), summation_of_series(x_start, e));
@@ -60,13 +71,36 @@ double result_of_function(double x){
     return atan(x);
 }
 
-double summation_of_series(double x, double e){
+double summation_of_series(double x, const double e)
+{
     double r = 0.0f;
-    double result = x, x_past = x;
-    while (x_past + DBL_EPSILON > e + DBL_EPSILON){
-        result += x_past * (-1 * ((pow(x, 2)) * (2 * r + 1) / (2 * r + 3)));
-        x_past *= -1 * ((pow(x, 2)) * (2 * r + 1) / (2 * r + 3));
-        r += 1;
+    double result = x, last_term = x;
+    while (result_of_function(x) - last_term - e > DBL_EPSILON)
+    {
+        last_term *= -1 * ((pow(x, 2)) * (2 * r + 1) / (2 * r + 3));  
+        result += x_past ;
+        r++;
     }
     return result;
+}
+
+bool check_arguments(double x_start, double x_stop, double x_step)
+{
+    if (x_stop - x_start < DBL_EPSILON)
+    {
+        if (x_step > -DBL_EPSILON)
+        {
+            puts("Inserted a wrong arguments!");
+            abort();
+        }
+    }
+    else if (x_stop - x_start > -DBL_EPSILON)
+    {
+        if (x_step < DBL_EPSILON)
+        {
+            puts("Inserted a wrong arguments!");
+            abort();
+        }
+    }
+    return true;
 }
