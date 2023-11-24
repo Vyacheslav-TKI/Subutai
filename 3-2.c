@@ -81,8 +81,8 @@ double verified_sum_of_series(double e){
     int r = 1;
     while(last_elem - e >= -DBL_EPSILON)
     {
-        last_elem *= (pow(r+2, 3) / pow(r+1, 4));
         r++;
+        last_elem *= (pow(r+2, 3) / pow(r+1, 4));
         result += last_elem;
     }
     return result;
