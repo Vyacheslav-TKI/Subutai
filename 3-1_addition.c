@@ -14,7 +14,7 @@ int counting_digits(int y);
  * @return 1 программа с ошибкой
 */
 int main(){
-    int number, counter = 0;
+    int number;
     if (scanf("%d", &number) != 1){
         puts("Please, insert a natural number!\n");
         return 1;
