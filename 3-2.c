@@ -79,7 +79,7 @@ double verified_sum_of_series(double e){
     double result = 0.0f;
     double last_elem = 1.0f; 
     int r = 1;
-    while(last_elem - e >= -DBL_EPSILON)
+    while(fabs(last_elem) - e >= -DBL_EPSILON)
     {
         r++;
         last_elem *= (pow(r+2, 3) / pow(r+1, 4));
@@ -93,6 +93,11 @@ double check_number_float(){
     if(scanf("%lf", &x) != 1)
     {
         puts("Please, insert a valid value!\n");
+        abort();
+    }
+    if (x < -DBL_EPSILON && x - fabs((pow(1+2, 3) / pow(1+1, 4))) > DBL_EPSILON)
+    {
+        puts("Please, insert another value!\n");
         abort();
     }
     return x;
