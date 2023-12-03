@@ -42,7 +42,7 @@ int main()
 
     check_arguments(x_start, x_stop, x_step);
 
-    while (x_start <= x_stop)
+    while (x_start - x_stop <= DBL_EPSILON)
     {
         if (!check_function(x_start))
         {
@@ -71,7 +71,7 @@ double check_number()
 
 bool check_function(double x)
 {
-    if ((x + cos(powf(x, 0.52)+2) + DBL_EPSILON) < -0.57 + DBL_EPSILON || x < DBL_EPSILON)
+    if (x < -DBL_EPSILON)
     {
         return false;
     }
