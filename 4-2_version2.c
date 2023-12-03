@@ -16,20 +16,14 @@ int get_int();
 */
 size_t get_size_t();
 
+/**
+ * @brief структура хранит константы, указывающие выбор пользователя заполнить массив
+*/
 enum Choices
 {
     user_choice = 1,
     random_choice = 2,
 };
-
-/**
- * @brief Функция заполняет массив по выбору пользователя (сам или рандом)
- * @param choice целочисленное значение, означающее выбор способа заполнения массива
- * @param length длина массива
- * @return mas указатель на заполненный массив
- * @return 0 ошибка при выборе заполнения массива
-*/
-int* choices_to_fill_array(const int choice, const int length);
 
 /**
  * @brief Функция выделяет память под массив
@@ -52,22 +46,86 @@ void user_array(int* const array, const size_t length);
 */
 void random_array(int* const array, const size_t length);
 
+/**
+ * @brief Функция, показывающая массив поэлементно
+ * @param array ссылка на показываемый массив
+ * @param length длина массива
+*/
 void show_array(const int* const array, const size_t length);
 
+/**
+ * @brief Функция копирующая элементы одного массива в другой
+ * @param array_original исходный массив
+ * @param array_copy пустой массив
+ * @param length длина массива
+*/
 void copy_array(int* const array_original, int* array_copy, const size_t length);
 
+/**
+ * @brief Функция проверяет массив на предмет отрицательного числа
+ * @param array ссылка на массив
+ * @param length длина массива
+ * @return 0 Есть такие элементы
+ * @return 1 Нет таких элементов
+*/
 int find_negative_elements(int* const array, size_t length);
 
+/**
+ * @brief Функция находит индекс первого отрицательного элемента
+ * @param array ссылка на массив
+ * @param length длина массива
+ * @return index индекс элемента
+*/
+int first_negative_element(int* const array, size_t length);
+
+/**
+ * @brief Функция находит по индексу минимальное по модулю отрицателное число
+ * @param array ссылка на массив
+ * @param length длина массива
+ * @return index индекс элемента
+*/
 int find_abs_min(int* const array, size_t length);
 
+/**
+ * @brief Заменяет минимальное по модулю отрицателное число на первый элемент
+ * @param array ссылка на массив
+ * @param length размер массива
+ * @return NULL отрицательных чисел нет
+ * @return new_array новый массив, соответствующий этим требованиям
+*/
 int *first_task(int* array, size_t length);
 
+/**
+ * @brief Функция вычисляет размерность нового массива по условию из 2 пункта
+ * @param array ссылка на массив 
+ * @param length длина массива
+ * @return new_index размерность нового массива
+*/
 int new_index(int* array, size_t length);
 
+/**
+ * @brief Функция удаляет из массива элементы, оканчивающиеся на 0
+ * @param array ссылка на массив
+ * @param length длина массива
+ * @return NULL в массиве нет элементов, окачивающиеся на 0
+ * @return new_array новый массив, соответствующий этим требованиям
+*/
 int* second_task(int* const array, size_t length);
 
+/**
+ * @brief Функция проверяет на четность целое число
+ * @param number число
+ * @return 0 четный
+ * @return 1 нечетный
+*/
 int is_even(int number);
 
+/**
+ * @brief Заменяет в массиве элементы по соответствующим условиям
+ * @param array ссылка на массив
+ * @param length размерность массива
+ * @return new_array новый массив, соответствующий этим требованиям
+*/
 int* third_task(int* const array, size_t length);
 
 /**
@@ -86,19 +144,33 @@ int main()
     size_t length = get_size_t();
     puts("if you fill array by youself, press 1, if you fill array by random numbers, press 2\n");
     int choice = get_int();
-    int* mas = choices_to_fill_array(choice, length);
+    int* mas = get_mem_array(length);
     if (mas == 0)
     {
         puts("Inserted a wrong choice\n");
         return 1;
     }
-    if (first_task(*mas, length) == 1)
+
+    switch ((enum Choices)choice)
+    {
+        case random_choice:
+            random_array(*mas, length);
+            break;
+        case user_choice:
+            user_array(*mas, length);
+            break;
+        default:
+            puts("Insert a valid choice!\n");
+            return 1;
+    }
+
+    if (NULL == first_task(*mas, length))
     {
         show_array(*mas, length);
     }
     puts("First task:\n");
     show_array(first_task(*mas, length), length);
-    if (second_task(*mas, length) == 1)
+    if (NULL == second_task(*mas, length))
     {
         show_array(*mas, length);
     }
@@ -129,22 +201,6 @@ size_t get_size_t()
         abort();
     }
     return (size_t)number;
-}
-
-int* choices_to_fill_array(const int choice, const int length)
-{
-    int* mas = get_mem_array(length);
-    if (choice == (enum Choices)(user_choice))
-    {
-        user_array(*mas, length);
-        return mas;
-    }
-    else if (choice == (enum Choices)(random_choice))
-    {
-        random_array(*mas, length);
-        return mas;
-    }
-    return 0;
 }
 
 int* get_mem_array(const int length)
@@ -205,7 +261,7 @@ int find_negative_elements(int* const array, size_t length)
     return 1;
 }
 
-int find_abs_min(int* const array, size_t length)
+int first_negative_element(int* const array, size_t length)
 {
     int index = length;
     for (size_t i = 0; i < length; i++)
@@ -215,6 +271,12 @@ int find_abs_min(int* const array, size_t length)
             index = i;
         }
     }
+    return index;
+}
+
+int find_abs_min(int* const array, size_t length)
+{
+    int index = first_negative_element(*array, length);
     for (size_t i = 0; i < length; i++)
     {
         if (array[i] < 0)
@@ -254,7 +316,7 @@ int *first_task(int* array, size_t length)
 {
     if (find_negative_elements(array, length) == 1)
     {
-        return 1;
+        return NULL;
     }
     int* new_array = get_mem_array(length);
     int ind_minimum;
@@ -268,7 +330,7 @@ int* second_task(int* const array, size_t length)
 {
     if (new_index(*array, length) == 0)
     {
-        return 1;
+        return NULL;
     }
     int new_length = new_index(*array, length);
     int* new_array = get_mem_array(new_length);
