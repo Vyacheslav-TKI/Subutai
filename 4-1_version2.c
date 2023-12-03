@@ -15,20 +15,14 @@ int get_int();
 */
 size_t get_size_t();
 
+/**
+ * @brief структура хранит константы, указывающие выбор пользователя заполнить массив
+*/
 enum Choices
 {
     user_choice = 1,
     random_choice = 2,
 };
-
-/**
- * @brief Функция заполняет массив по выбору пользователя (сам или рандом)
- * @param choice целочисленное значение, означающее выбор способа заполнения массива
- * @param length длина массива
- * @return mas указатель на заполненный массив
- * @return 0 ошибка при выборе заполнения массива
-*/
-int* choices_to_fill_array(const int choice, const int length);
 
 /**
  * @brief Функция выделяет память под массив
@@ -85,6 +79,7 @@ void free_array(int* array);
 /**
  * @brief Точка входа в программу
  * @return 0 Программа исправна
+ * @return 1 Программа досрочно закрылась с ошибкой
 */
 int main()
 {
@@ -92,12 +87,25 @@ int main()
     size_t length = get_size_t();
     puts("if you fill array by youself, press 1, if you fill array by random numbers, press 2\n");
     int choice = get_int();
-    int* mas = choices_to_fill_array(choice, length);
+    int* mas = get_mem_array(length);
     if (mas == 0)
     {
         puts("Inserted a wrong choice\n");
         return 1;
     }
+    switch ((enum Choices)choice)
+    {
+        case random_choice:
+            random_array(*mas, length);
+            break;
+        case user_choice:
+            user_array(*mas, length);
+            break;
+        default:
+            puts("Insert a valid choice!\n");
+            return 1;
+    }
+    
     puts("insert a integer number\n");
     int number = get_int();
     printf("First task: %d\n", first_task(*mas, length, number));
@@ -135,22 +143,6 @@ size_t get_size_t()
         abort();
     }
     return (size_t)number;
-}
-
-int* choices_to_fill_array(const int choice, const int length)
-{
-    int* mas = get_mem_array(length);
-    if (choice == (enum Choices)(user_choice))
-    {
-        user_array(*mas, length);
-        return mas;
-    }
-    else if (choice == (enum Choices)(random_choice))
-    {
-        random_array(*mas, length);
-        return mas;
-    }
-    return 0;
 }
 
 int* get_mem_array(const int length)
@@ -196,7 +188,7 @@ int first_task(int* const array, size_t length, const int number)
 int second_task(int* const array, size_t length)
 {
     int result = array[length-1];
-    for (size_t i = 0; i < length-1; i += 2)
+    for (size_t i = 1; i < length-1; i += 2)
     {
         if (array[i] > 0)
         {
