@@ -78,7 +78,7 @@ double summation_of_series(double x, const double e)
     while (result_of_function(x) - last_term - e > DBL_EPSILON)
     {
         last_term *= -1 * ((pow(x, 2)) * (2 * r + 1) / (2 * r + 3));  
-        result += x_past ;
+        result += last_term;
         r++;
     }
     return result;
