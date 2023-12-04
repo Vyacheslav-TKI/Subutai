@@ -95,7 +95,7 @@ double check_number_float(){
         puts("Please, insert a valid value!\n");
         abort();
     }
-    if (x < -DBL_EPSILON && x - fabs((pow(1+2, 3) / pow(1+1, 4))) > DBL_EPSILON)
+    if (x < DBL_EPSILON && x - fabs((pow(1+2, 3) / pow(1+1, 4))) > -DBL_EPSILON)
     {
         puts("Please, insert another value!\n");
         abort();
