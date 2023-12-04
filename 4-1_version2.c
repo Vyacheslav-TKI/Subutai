@@ -17,6 +17,8 @@ size_t get_size_t();
 
 /**
  * @brief структура хранит константы, указывающие выбор пользователя заполнить массив
+ * @brief user_choice хранит значение, вызывающее ввод массива вручную
+ * @brief random_choice хранит значение, вызывающее ввод массива случайными числами
 */
 enum Choices
 {
@@ -88,11 +90,6 @@ int main()
     puts("if you fill array by youself, press 1, if you fill array by random numbers, press 2\n");
     int choice = get_int();
     int* mas = get_mem_array(length);
-    if (mas == 0)
-    {
-        puts("Inserted a wrong choice\n");
-        return 1;
-    }
     switch ((enum Choices)choice)
     {
         case random_choice:
