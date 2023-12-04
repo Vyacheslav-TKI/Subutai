@@ -18,6 +18,8 @@ size_t get_size_t();
 
 /**
  * @brief структура хранит константы, указывающие выбор пользователя заполнить массив
+ * @brief user_choice хранит значение, вызывающее ввод массива вручную
+ * @brief random_choice хранит значение, вызывающее ввод массива случайными числами
 */
 enum Choices
 {
@@ -145,11 +147,6 @@ int main()
     puts("if you fill array by youself, press 1, if you fill array by random numbers, press 2\n");
     int choice = get_int();
     int* mas = get_mem_array(length);
-    if (mas == 0)
-    {
-        puts("Inserted a wrong choice\n");
-        return 1;
-    }
 
     switch ((enum Choices)choice)
     {
@@ -168,13 +165,19 @@ int main()
     {
         show_array(*mas, length);
     }
-    puts("First task:\n");
-    show_array(first_task(*mas, length), length);
+    else:
+    {
+        puts("First task:\n");
+        show_array(first_task(*mas, length), length);
+    }
     if (NULL == second_task(*mas, length))
     {
         show_array(*mas, length);
     }
-    show_array(second_task(*mas, length), new_index(*mas, length));
+    else
+    {
+        show_array(second_task(*mas, length), new_index(*mas, length));
+    }
     show_array(third_task(*mas, length), length);
     free_array(*mas);
     return 0;
@@ -319,10 +322,8 @@ int *first_task(int* array, size_t length)
         return NULL;
     }
     int* new_array = get_mem_array(length);
-    int ind_minimum;
     copy_array(*array, *new_array, length);
-    ind_minimum = find_abs_min(*new_array, length);
-    new_array[ind_minimum] = new_array[0];
+    new_array[find_abs_min(*new_array, length)] = new_array[0];
     return new_array;
 }
 
